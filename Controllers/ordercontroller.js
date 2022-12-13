@@ -49,13 +49,14 @@ export const addOrder=async(req,res)=>{
             productDetails.push(vendor)
         }
 
-
         let totalPrice=productDetails.reduce((acc,elem)=>{
         return acc+elem.price
         },0)
 
         order.vendor_details=productDetails
         order.total_price=totalPrice
+        order.delivery=false
+        order.ready_for_fulfillment=false
 
        let createOrder= await orderModel.create(order)
        res.send({
@@ -71,23 +72,108 @@ export const addOrder=async(req,res)=>{
 
 export const getOrderDetails = async function(req,res){
     const {id}=req.body
-   try{
-    if(id){
-        let orderDetails=await orderModel.findOne({"_id":id})
-        res.send({
-            "status": "success",
-            "message": orderDetails
-        })
-    }else{
-        res.status(404).send({
+    try{
+        if(id){
+            let orderDetails=await orderModel.findOne({"_id":id})
+            res.send({
+                "status": "success",
+                "message": orderDetails
+            })
+        }else{
+            res.status(404).send({
+                "status": "error",
+                "message": "Enter Valid Id"
+            })
+        }
+    }catch(err){
+        res.status(500).send({
             "status": "error",
-            "message": "Enter Valid Id"
+            "message":"Internal Server Error"
         })
     }
-   }catch(err){
-    res.status(500).send({
-        "status": "error",
-        "message":"Internal Server Error"
-    })
-   }
+}
+
+export const MarkOrderComplete=async(req,res)=>{
+    try{
+    const {id,delivered}=req.body;
+
+    if(typeof id == "string" && typeof delivered ==  "boolean"){
+
+        let marked= await orderModel.findByIdAndUpdate(id,{"delivery":delivered})
+
+        if(!marked){
+            res.status(404).send({
+                "status": "error",
+                "message":"Enter Valid id"
+            })
+        }else{
+            res.status(200).send({
+                "status": "success",
+                "message":"Order Marked Completed"
+            })
+        }
+    }else{
+        res.status(400).send({
+            "status": "error",
+            "message":"Invalid Type of data"
+        })
+    }
+      
+    }catch(err){
+        if(err.message){
+            res.status(500).send({
+                "status": "error",
+                "message":err.message
+            })
+        }else{
+            res.status(500).send({
+                "status": "error",
+                "message":err
+            })
+        }
+       
+    }
+}
+
+export const finalizeOrder=async(req,res) => {
+    try{
+        const {id,ready_for_fulfillment}=req.body;
+    
+        if(typeof id == "string" && typeof ready_for_fulfillment ==  "boolean"){
+    
+            let fulfil= await orderModel.findByIdAndUpdate(id,{"ready_for_fulfillment":ready_for_fulfillment})
+    
+            if(!fulfil){
+                res.status(404).send({
+                    "status": "error",
+                    "message":"Enter Valid id"
+                })
+            }else{
+                res.status(200).send({
+                    "status": "success",
+                    "message":"Order Marked Completed"
+                })
+            }
+
+        }else{
+            res.status(400).send({
+                "status": "error",
+                "message":"Invalid Type of data"
+            })
+        }
+          
+        }catch(err){
+            if(err.message){
+                res.status(500).send({
+                    "status": "error",
+                    "message":err.message
+                })
+            }else{
+                res.status(500).send({
+                    "status": "error",
+                    "message":err
+                })
+            }
+           
+        }
 }

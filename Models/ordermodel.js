@@ -19,6 +19,12 @@ const orderSchema=mongoose.Schema({
     },
     total_price:{
         type:"Number",
+    },
+    delivery:{
+        type:"Boolean",
+    },
+    readyToFulfillment:{
+        type:"Boolean",
     }
 })
 
