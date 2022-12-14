@@ -74,13 +74,19 @@ ALL REQUEST WITH EXAMPLES-->
 
             a)POST request on "http://localhost:8080/vendors/CreateNewVendor"
 
-            example->
-                {
-                "vendor_name":"gamma electronics",
-                "vendor_speciality":"switch",
-                "price":20
-                }
-
+             {
+                "vendor":[
+                    {
+                    "vendor_name":"gamma electronics",
+                    "vendor_speciality":"switch",
+                    "price":20
+                    },{
+                    "vendor_name":"sakti electronics",
+                    "vendor_speciality":"switch",
+                    "price":10
+                    }
+                ]
+             }
             response->
                 {
                 "status": "success",

@@ -2,15 +2,24 @@ import { vendormodel } from "../Models/vendormodel.js"
 
 export const addVendor =async(req,res) => {
     try{
-            let vendor =req.body
-            vendor.reviewed_by=0
-            vendor.delivery_rating=5
-            vendor.overall_rating=5
-           await vendormodel.create(vendor)
-            res.send({
-                "status":"success",
-                "message":"vendor added successfully"
-            })
+            let {vendor} =req.body
+            if(vendor.length>0){ 
+                for(let i=0;i<vendor.length;i++){
+                    vendor.reviewed_by=0
+                    vendor.delivery_rating=5
+                    vendor.overall_rating=5
+                await vendormodel.create(vendor[i]);
+                }
+                res.send({
+                    "status":"success",
+                    "message":"vendor added successfully"
+                })
+            }else{
+                res.status(400).send({
+                    "status":"error",
+                    "message":"Provide at least one vendor"
+                })
+            }
        
     }catch(err){
         if(err.message){
@@ -80,7 +89,7 @@ export const allVendorDetails =async (req,res) => {
     try{
        let response= await vendormodel.find();
        res.send({
-        "status": "error",
+        "status": "success",
         "message": response
        })
     }catch(err){

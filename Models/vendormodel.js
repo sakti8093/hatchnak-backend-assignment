@@ -10,10 +10,10 @@ const vendorSchema=mongoose.Schema({
         required:true,
     },
     delivery_rating:{
-        type:"number"
+        type:"number",
     },
     overall_rating:{
-        type:"number"
+        type:"number",
     },
     reviewed_by:{
         type:"number"
