@@ -9,8 +9,5 @@ router.get ('/viewOrder/:id',getOrderDetails)
 router.patch ('/SubmitFinalOrder/:id',finalizeOrder)
 router.patch ('/MarkOrderComplete/:id',MarkOrderComplete)
 
-// for viewing all vendors
-router.get('/allVendors',allVendorDetails)
-
 
 export default router

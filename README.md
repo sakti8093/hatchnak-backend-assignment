@@ -4,7 +4,7 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 1)For Giving Order-->
 
-            a)POST request on "http://localhost:8080/createOrder"
+            a)POST request on "http://localhost:8080/orders/createOrder"
                 body ->
                  {
                     "customer_name":"customer",
@@ -86,10 +86,12 @@ ALL REQUEST WITH EXAMPLES-->
                 "status": "success",
                 "message": "vendor added successfully"
                 }
+            
+            for viewing change make a get request on "http://localhost:8080/vendors/allVendors"
 
 ## 4) for submitting final order
 
-            a)PATCH request on "http://localhost:8080/SubmitFinalOrder/63995e5bcc472cc8e3d4aee5"
+            a)PATCH request on "http://localhost:8080/orders/SubmitFinalOrder/63995e5bcc472cc8e3d4aee5"
             example->
             {
                 "ready_for_fulfillment":true
@@ -101,11 +103,11 @@ ALL REQUEST WITH EXAMPLES-->
             "message": "Order Marked Completed"
             }
 
-        Veiew Changes by making get reuest to viewOrder
+      View Changes by making get reuest to http://localhost:8080/orders/viewOrder/639968d477f067afffba7d43
 
 ## 5) for marking order complete
 
-        a) PATCH request on "http://localhost:8080/MarkOrderComplete/63995e5bcc472cc8e3d4aee5"
+        a) PATCH request on "http://localhost:8080/orders/MarkOrderComplete/63995e5bcc472cc8e3d4aee5"
 
         example->
         {
@@ -119,11 +121,11 @@ ALL REQUEST WITH EXAMPLES-->
         }
 
     
-        Veiew Changes by making get reuest to viewOrder
+         View Changes by making get reuest to http://localhost:8080/orders/viewOrder/639968d477f067afffba7d43
 
 ## 6)for submitting review
 
-        a)POST request on "http://localhost:8080/submitVendorReview"
+        a)POST request on "http://localhost:8080/vendors/submitVendorReview"
 
         example->
         {
@@ -138,3 +140,5 @@ ALL REQUEST WITH EXAMPLES-->
             "status": "success",
             "message": "Vendor Rating updated successfully"
         }
+    
+    for viewing change make a get request on "http://localhost:8080/vendors/allVendors"
