@@ -2,6 +2,11 @@
 
 ALL REQUEST WITH EXAMPLES-->
 
+## for running server
+            
+            npm run server
+
+
 ## 1)For Giving Order-->
 
             a)POST request on "http://localhost:8080/orders/createOrder"
@@ -111,6 +116,8 @@ ALL REQUEST WITH EXAMPLES-->
 
       View Changes by making get reuest to http://localhost:8080/orders/viewOrder/639968d477f067afffba7d43
 
+    
+
 ## 5) for marking order complete
 
         a) PATCH request on "http://localhost:8080/orders/MarkOrderComplete/63995e5bcc472cc8e3d4aee5"
@@ -126,8 +133,9 @@ ALL REQUEST WITH EXAMPLES-->
         "message": "Order Marked Completed"
         }
 
-    
          View Changes by making get reuest to http://localhost:8080/orders/viewOrder/639968d477f067afffba7d43
+
+         Note:- Order should finalize then order can be set to delivery
 
 ## 6)for submitting review
 
@@ -141,7 +149,6 @@ ALL REQUEST WITH EXAMPLES-->
         }
 
         response->
-
         {
             "status": "success",
             "message": "Vendor Rating updated successfully"
