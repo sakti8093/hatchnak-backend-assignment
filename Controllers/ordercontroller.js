@@ -4,7 +4,7 @@ import { vendormodel } from "../Models/vendormodel.js";
 const getVendor = async (key, list) => {
   let vendors = await vendormodel
     .find({ vendor_speciality: key })
-    .sort({ delivery_rating: 1 });
+    .sort({ overall_rating: -1 });
   if (vendors.length < 1) {
     return 0;
   }
@@ -20,15 +20,11 @@ const getVendor = async (key, list) => {
   };
 
   if (vendors.length > 1) {
-    if (
-      vendors[0].overall_rating == vendors[1].overall_rating &&
-      vendors[0].delivery_rating == vendors[1].delivery_rating
-    ) {
+    if (  vendors[0].overall_rating == vendors[1].overall_rating &&vendors[0].delivery_rating == vendors[1].delivery_rating  ) {
       let arrayWithSameRatings = [];
 
       for (let i = 0; i < vendors.length; i++) {
-        if (
-          vendors[i].overall_rating == vendors[0].overall_rating && vendors[i].delivery_rating == vendors[0].delivery_rating ) {
+        if ( vendors[i].overall_rating == vendors[0].overall_rating && vendors[i].delivery_rating == vendors[0].delivery_rating ) {
           arrayWithSameRatings.push(i);
         }
       }
