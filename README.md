@@ -28,7 +28,7 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 2)For Getting Order Details (vendor assigned)-->
 
-            a)POST request on "http://localhost:8080/getOrderDetails"
+            a)POST request on "http://localhost:8080/viewOrder"
 
             body->
             {
@@ -125,3 +125,16 @@ ALL REQUEST WITH EXAMPLES-->
 ## 6)for submitting review
 
         a)POST request on "http://localhost:8080/submitVendorReview"
+
+        example->
+        {
+            "vendor_id":"63987820f7be5e7189077297",
+            "overall_rating" : 4,
+            "delivery_rating" : 5
+        }
+
+        response->
+        {
+            "status": "success",
+            "message": "Vendor Rating updated successfully"
+        }

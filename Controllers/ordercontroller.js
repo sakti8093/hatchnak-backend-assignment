@@ -3,10 +3,24 @@ import { vendormodel } from "../Models/vendormodel.js"
 
 const getVendor=async(key,list)=>{
     let vendors=await vendormodel.find({"vendor_speciality":key}).sort({"delivery_rating":1})
+    if(vendors.length<1){
+        let vendor_not_found={
+            "product_name":key,
+            "assigned_vendor":"Vendor Not Found",
+            "quantity":list[key],
+            "vendor_overall_rating":0,
+            "vendor_delivery_rating":0,
+            "price":0
+        }
+       return  vendor_not_found;
+    }
        
     let vendor_assign={
         "product_name":key,
         "assigned_vendor":vendors[0].vendor_name,
+        "quantity":list[key],
+        "vendor_overall_rating":vendors[0].overall_rating,
+        "vendor_delivery_rating":vendors[0].delivery_rating,
         "price":vendors[0].price*list[key]
     }
 
@@ -24,7 +38,9 @@ const getVendor=async(key,list)=>{
 
           let selected=vendors[Math.floor (Math.random()*arrayWithSameRatings.length)]
 
-          vendor_assign.assigned_vendor=selected.vendor_name,
+          vendor_assign.assigned_vendor=selected.vendor_name
+          vendor_assign.vendor_delivery_rating=selected.delivery_rating
+          vendor_assign.vendor_overall_rating=selected.overall_rating
           vendor_assign.price=selected.price*list[key]
 
          return vendor_assign
@@ -46,7 +62,7 @@ export const addOrder=async(req,res)=>{
 
         for(let key in list){
            let vendor=await  getVendor(key,list)
-            productDetails.push(vendor)
+             productDetails.push(vendor)
         }
 
         let totalPrice=productDetails.reduce((acc,elem)=>{
@@ -75,10 +91,18 @@ export const getOrderDetails = async function(req,res){
     try{
         if(id){
             let orderDetails=await orderModel.findOne({"_id":id})
-            res.send({
-                "status": "success",
-                "message": orderDetails
-            })
+            if(!orderDetails){
+                res.send({
+                    "status": "success",
+                    "message": orderDetails
+                })
+            }else{
+                res.send({
+                    "status": "error",
+                    "message": "No Order Details Found"
+                })
+            }
+           
         }else{
             res.status(404).send({
                 "status": "error",

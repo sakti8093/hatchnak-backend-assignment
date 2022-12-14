@@ -2,27 +2,30 @@ import mongoose from 'mongoose';
 
 const vendorSchema=mongoose.Schema({
     vendor_name:{
-        type:'String',
+        type:'string',
         required:true
     },
     vendor_speciality:{
-        type:'String',
+        type:'string',
         required:true,
     },
     delivery_time:{
-        "type":"Number"
+        "type":"number"
     },
     delivery_rating:{
-        type:"Number"
+        type:"number"
     },
     overall_rating:{
-        type:"Number"
+        type:"number"
     },
     reviewed_by:{
-        type:"Number"
+        type:"number"
+    },
+    ready_for_fulfillment:{
+        type:'boolean',
     },
     price:{
-        type:"Number",
+        type:"number",
         required:true
     }
 })
