@@ -3,29 +3,29 @@ import mongoose from 'mongoose';
 const orderSchema=mongoose.Schema({
    
     customer_name:{
-        type:'String',
+        type:'string',
         required:true
     },
     product_list:{
-        type:'Object',
+        type:'object',
         required:true,
     },
     delivery_date:{
-        type:"String",
+        type:"string",
         required:true
     },
     vendor_details:{
-        type:"Array",
+        type:"array",
     },
     total_price:{
-        type:"Number",
+        type:"number",
     },
     delivery:{
-        type:"Boolean",
+        type:"boolean",
     },
-    readyToFulfillment:{
-        type:"Boolean",
+    ready_for_fulfillment:{
+        type:"boolean",
     }
-})
+},{ timestamps: true })
 
 export const orderModel=mongoose.model('orders',orderSchema)

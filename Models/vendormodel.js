@@ -9,9 +9,6 @@ const vendorSchema=mongoose.Schema({
         type:'string',
         required:true,
     },
-    delivery_time:{
-        "type":"number"
-    },
     delivery_rating:{
         type:"number"
     },
@@ -21,13 +18,10 @@ const vendorSchema=mongoose.Schema({
     reviewed_by:{
         type:"number"
     },
-    ready_for_fulfillment:{
-        type:'boolean',
-    },
     price:{
         type:"number",
         required:true
-    }
-})
+    },
+},{ timestamps: true })
 
 export const vendormodel=mongoose.model('vendors',vendorSchema)

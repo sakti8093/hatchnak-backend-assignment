@@ -2,31 +2,44 @@ import { vendormodel } from "../Models/vendormodel.js"
 
 export const addVendor =async(req,res) => {
     try{
-        let vendor =req.body
-        vendor.reviewed_by=0
-        vendor.delivery_rating=5
-        vendor.overall_rating=5
-       await vendormodel.create(vendor)
-        res.send({
-            "status":"success",
-            "message":"vendor added successfully"
-        })
+            let vendor =req.body
+            vendor.reviewed_by=0
+            vendor.delivery_rating=5
+            vendor.overall_rating=5
+           await vendormodel.create(vendor)
+            res.send({
+                "status":"success",
+                "message":"vendor added successfully"
+            })
+       
     }catch(err){
-        res.send(err.message)
+        if(err.message){
+            res.status(400).send({
+                "status":"error",
+                "message":err.message
+            })
+        }else{
+            res.status(500).send({
+                "status":"error",
+                "message":"Internal Server Error"
+            })
+        }
+       
     }
 }
 
 export const updateVendorRating = async(req,res) => {
     try{
         let {vendor_id,overall_rating,delivery_rating}=req.body
-        if(vendor_id.length!=24){
-            res.send({"status":"error", "message":"Vendor ID should be of 24 characters" })
-        }else{
             if(vendor_id && overall_rating && delivery_rating ){
-
+                if(vendor_id.length!=24){
+                    res.status(400).send({"status":"error", "message":"Vendor ID should be of 24 characters" })
+                }else if( typeof overall_rating !="number" || typeof delivery_rating !="number"  ){
+                    res.status(400).send({"status":"error", "message":"Ratings should be in numbers" })
+                }else{
                 let vendor=await vendormodel.findOne({"_id":vendor_id})
                  if(!vendor){
-                  res.send({
+                  res.status(400).send({
                       "status": "error",
                       "message": "Invalid vendor id"
                     });
@@ -47,13 +60,12 @@ export const updateVendorRating = async(req,res) => {
                       "message": "Vendor Rating updated successfully",
                     });
                  }
-            
-              }else{
-                  res.send({
-                      "status": "error",
-                      "message": "Fill all required fields",
-                  })
               }
+        }else{
+            res.status(400).send({
+                "status": "error",
+                "message": "Fill all required fields",
+            })
         }
 
     }catch(err){

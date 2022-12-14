@@ -11,12 +11,13 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/createOrder',addOrder)
-app.post('/CreateNewVendor',addVendor)
-app.post('/viewOrder',getOrderDetails)  //id
-app.post('/SubmitFinalOrder',finalizeOrder)
-app.post('/submitVendorReview',updateVendorRating) //search by vendor name
-app.post('/MarkOrderComplete',MarkOrderComplete)  //post body --> id,delivered
+app.post ('/createOrder',addOrder)
+app.post ('/CreateNewVendor',addVendor)
+app.post ('/viewOrder',getOrderDetails)  
+app.patch ('/SubmitFinalOrder',finalizeOrder)
+app.patch ('/MarkOrderComplete',MarkOrderComplete) 
+app.post ('/submitVendorReview',updateVendorRating) 
+
 
 app.listen(8080,(req,res)=>{
     try{

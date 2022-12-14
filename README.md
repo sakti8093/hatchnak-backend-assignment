@@ -6,11 +6,11 @@ ALL REQUEST WITH EXAMPLES-->
 
             a)POST request on "http://localhost:8080/createOrder"
                 body ->
-                {
-                    "customer_name":"customer1",
+                 {
+                    "customer_name":"customer",
                     "product_list":{
                         "switch":3,
-                        "battery":3
+                        "battery":1
                     },
                     "delivery_date":"14-02-2022"
                 }
@@ -21,7 +21,7 @@ ALL REQUEST WITH EXAMPLES-->
                 {
                 "status": "success",
                 "message": "Vendor Assigned",
-                "id": "6398e48e40e7e89f9c116258"
+                "id": "63996a67fca7c8283817cc1a"
                 }
 
             d)This id will be used for getting the order details
@@ -32,42 +32,49 @@ ALL REQUEST WITH EXAMPLES-->
 
             body->
             {
-                  "id":"6398e48e40e7e89f9c116258"
+                  "id":"639968d477f067afffba7d43"
             }
 
             response->
 
+           {
+            "status": "success",
+            "message": {
+            "_id": "63996a67fca7c8283817cc1a",
+            "customer_name": "customer",
+            "product_list": {
+            "switch": 3,
+            "battery": 1
+            },
+            "delivery_date": "14-02-2022",
+            "vendor_details": [
             {
-                "status": "success",
-                "message": {
-                    "_id": "6398e48e40e7e89f9c116258",
-                    "customer_name": "customer1",
-                    "product_list": {
-                    "switch": 3,
-                    "battery": 3
-                    },
-                    "delivery_date": "14-02-2022",
-                    "vendor_details": [
-                    [
-                        {
-                        "product_name": "switch",
-                        "assigned_vendor": "gamma electronics",
-                        "price": 69
-                        }
-                    ],
-                    [
-                        {
-                        "product_name": "battery",
-                        "assigned_vendor": "new electronics",
-                        "price": 60
-                        }
-                    ]
-                    ],
-                    "total_price": 129,
-                    "delivery": false,
-                    "__v": 0
-                }
+                "product_name": "switch",
+                "vendor_id": "6398790fb59567119b8c5ad6",
+                "assigned_vendor": "gamma electronics",
+                "quantity": 3,
+                "vendor_overall_rating": 5,
+                "vendor_delivery_rating": 5,
+                "price": 69
+            },
+            {
+                "product_name": "battery",
+                "vendor_id": "639878fbb59567119b8c5ad2",
+                "assigned_vendor": "alpha electronics",
+                "quantity": 1,
+                "vendor_overall_rating": 5,
+                "vendor_delivery_rating": 5,
+                "price": 21
             }
+            ],
+            "total_price": 90,
+            "delivery": false,
+            "ready_for_fulfillment": false,
+            "createdAt": "2022-12-14T06:17:11.875Z",
+            "updatedAt": "2022-12-14T06:17:11.875Z",
+            "__v": 0
+        }
+        }
 
 ## 3) For Adding Vendors
 
@@ -77,7 +84,8 @@ ALL REQUEST WITH EXAMPLES-->
 
                 {
                 "vendor_name":"gamma electronics",
-                "vendor_speciality":"switch"
+                "vendor_speciality":"switch",
+                "price":20
                 }
 
             response->
@@ -89,12 +97,12 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 4) for submitting final order
 
-            a)POST request on "http://localhost:8080/SubmitFinalOrder"
+            a)PATCH request on "http://localhost:8080/SubmitFinalOrder"
 
             example->
 
             {
-                "id":"6398e48e40e7e89f9c116258",
+                "id":"63995e5bcc472cc8e3d4aee5",
                 "ready_for_fulfillment":true
             }
 
@@ -107,12 +115,12 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 5) for marking order complete
 
-        a) POST request on "http://localhost:8080/MarkOrderComplete"
+        a) PATCH request on "http://localhost:8080/MarkOrderComplete"
 
         example->
 
         {
-        "id":"6398e48e40e7e89f9c116258",
+        "id":"63995e5bcc472cc8e3d4aee5",
         "delivered":true
         }
 
