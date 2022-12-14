@@ -5,9 +5,9 @@ export const addVendor =async(req,res) => {
             let {vendor} =req.body
             if(vendor.length>0){ 
                 for(let i=0;i<vendor.length;i++){
-                    vendor.reviewed_by=0
-                    vendor.delivery_rating=5
-                    vendor.overall_rating=5
+                    vendor[i].reviewed_by=0
+                    vendor[i].delivery_rating=5
+                    vendor[i].overall_rating=5
                 await vendormodel.create(vendor[i]);
                 }
                 res.send({
