@@ -100,7 +100,7 @@ export const addOrder = async (req, res) => {
 };
 
 export const getOrderDetails = async function (req, res) {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     if (id) {
       let orderDetails = await orderModel.findOne({ _id: id });
@@ -138,7 +138,8 @@ export const getOrderDetails = async function (req, res) {
 
 export const MarkOrderComplete = async (req, res) => {
   try {
-    const { id, delivered } = req.body;
+    const {id}=req.params
+    const { delivered } = req.body;
       if (typeof id == "string" && typeof delivered == "boolean") {
         if (id.length != 24) {
             res.send({ status: "error", message: " id should be of 24 characters" });
@@ -153,14 +154,21 @@ export const MarkOrderComplete = async (req, res) => {
         } else {
           if (check.ready_for_fulfillment) {
             await orderModel.findByIdAndUpdate(id, { delivery: delivered });
+           if(delivered){
             res.status(200).send({
-              status: "success",
-              message: "Order Marked Completed",
-            });
+                status: "success",
+                message: "Order Marked Completed",
+              });
+           }else{
+            res.status(200).send({
+                status: "success",
+                message: "Order  Not Completed"
+              });
+           }
           } else {
             res.status(400).send({
               status: "error",
-              message: "Not Ready for fulfilment",
+              message: "First make ready for fulfillment",
             });
           }
         }
@@ -188,7 +196,8 @@ export const MarkOrderComplete = async (req, res) => {
 
 export const finalizeOrder = async (req, res) => {
   try {
-    const { id, ready_for_fulfillment } = req.body;
+    const {id}=req.params
+    const {  ready_for_fulfillment } = req.body;
 
     if (typeof id == "string" && typeof ready_for_fulfillment == "boolean") {
       if (id.length != 24) {
@@ -207,10 +216,17 @@ export const finalizeOrder = async (req, res) => {
             message: "Enter Valid id",
           });
         } else {
-          res.status(200).send({
-            status: "success",
-            message: "Order Marked Completed",
-          });
+            if(ready_for_fulfillment){
+                res.status(200).send({
+                    status: "success",
+                    message: "Order Finalized and ready for fulfillment",
+                  });
+            }else{
+                res.status(200).send({
+                    status: "success",
+                    message: "Order not finalized",
+                  });
+            }
         }
       }
     } else {

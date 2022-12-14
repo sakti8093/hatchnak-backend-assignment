@@ -69,6 +69,25 @@ export const updateVendorRating = async(req,res) => {
         }
 
     }catch(err){
-        console.log(err)
+        res.status(500).send({
+            "status": "error",
+            "message": "Internal Server Error"
+        })
     }
+}
+
+export const allVendorDetails =async (req,res) => {
+    try{
+       let response= await vendormodel.find();
+       res.send({
+        "status": "error",
+        "message": response
+       })
+    }catch(err){
+        res.status(400).send({
+            "status": "error",
+            "message": err
+        })
+    }
+    
 }

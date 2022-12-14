@@ -28,15 +28,9 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 2)For Getting Order Details (vendor assigned)-->
 
-            a)POST request on "http://localhost:8080/viewOrder"
-
-            body->
-            {
-                  "id":"639968d477f067afffba7d43"
-            }
+            a)GET request on "http://localhost:8080/orders/viewOrder/639968d477f067afffba7d43"
 
             response->
-
            {
             "status": "success",
             "message": {
@@ -78,10 +72,9 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 3) For Adding Vendors
 
-            a)POST request on "http://localhost:8080/CreateNewVendor"
+            a)POST request on "http://localhost:8080/vendors/CreateNewVendor"
 
             example->
-
                 {
                 "vendor_name":"gamma electronics",
                 "vendor_speciality":"switch",
@@ -89,7 +82,6 @@ ALL REQUEST WITH EXAMPLES-->
                 }
 
             response->
-
                 {
                 "status": "success",
                 "message": "vendor added successfully"
@@ -97,30 +89,26 @@ ALL REQUEST WITH EXAMPLES-->
 
 ## 4) for submitting final order
 
-            a)PATCH request on "http://localhost:8080/SubmitFinalOrder"
-
+            a)PATCH request on "http://localhost:8080/SubmitFinalOrder/63995e5bcc472cc8e3d4aee5"
             example->
-
             {
-                "id":"63995e5bcc472cc8e3d4aee5",
                 "ready_for_fulfillment":true
             }
 
             response->
-
             {
             "status": "success",
             "message": "Order Marked Completed"
             }
 
+        Veiew Changes by making get reuest to viewOrder
+
 ## 5) for marking order complete
 
-        a) PATCH request on "http://localhost:8080/MarkOrderComplete"
+        a) PATCH request on "http://localhost:8080/MarkOrderComplete/63995e5bcc472cc8e3d4aee5"
 
         example->
-
         {
-        "id":"63995e5bcc472cc8e3d4aee5",
         "delivered":true
         }
 
@@ -129,6 +117,9 @@ ALL REQUEST WITH EXAMPLES-->
         "status": "success",
         "message": "Order Marked Completed"
         }
+
+    
+        Veiew Changes by making get reuest to viewOrder
 
 ## 6)for submitting review
 
@@ -142,6 +133,7 @@ ALL REQUEST WITH EXAMPLES-->
         }
 
         response->
+
         {
             "status": "success",
             "message": "Vendor Rating updated successfully"
